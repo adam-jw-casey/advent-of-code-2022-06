@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 /// Finds the first occurence of 4 consecutive, different characters
 /// and returns the index of the last of those characters
 /// # Examples
@@ -10,5 +12,15 @@
 /// assert_eq!(find_packet_marker("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"), 11);
 /// ```
 pub fn find_packet_marker(stream: &str) -> usize{
-    1
+    let length = 4;
+
+    stream
+        .as_bytes()
+        .windows(length)
+        .enumerate()
+        .filter(|(_i,x)| x.iter().unique().count() == length)
+        .next()
+        .expect("There should be a packet start marker found")
+        .0
+        +length
 }
