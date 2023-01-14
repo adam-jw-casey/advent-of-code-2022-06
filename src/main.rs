@@ -7,5 +7,6 @@ fn main() {
     let contents = fs::read_to_string(file_path)
         .expect("Should be able to read the file");
 
-    println!("Found marker after receiving {} packets!", find_packet_marker(&contents));
+    println!("Found start of packet marker after receiving {} packets!", find_packet_marker(&contents, &4));
+    println!("Found start of message marker after receiving {} packets!", find_packet_marker(&contents, &14));
 }
